@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
-//import 'package:fluttertoast/fluttertoast.dart';
+import 'package:scrumnote/InsertDeleteEx.dart';
 import 'note.dart';
 import 'TaskLib.dart';
 
 void main() => runApp(MaterialApp(
   title: "Flutter tutorial",
-  home: home(),
+  home: MyTestInsertDeleteW(),
 ));
 
-class home extends StatelessWidget {
+class ShowAllTaskWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +23,7 @@ class home extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: listnote(),
+        child: ListNote(),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: "Ađd",
@@ -40,7 +39,7 @@ class home extends StatelessWidget {
   }
 }
 
-class listnote extends StatefulWidget{
+class ListNote extends StatefulWidget{
   final title = 'Grid List';
   @override
   State<StatefulWidget> createState() {
@@ -48,8 +47,7 @@ class listnote extends StatefulWidget{
     return ListNoteState();
   }
 }
-
-class ListNoteState extends State<listnote> {
+class ListNoteState extends State<ListNote> {
   //varible
   List<Task> ds=new List();
   ListTile _tile(String title, String subtitle, IconData icon) => ListTile(
@@ -69,17 +67,15 @@ class ListNoteState extends State<listnote> {
   //method
   _readAllTasks() async {
 
-
     DatabaseHelper helper = DatabaseHelper.instance;
-
     ds= await helper.queryAllTasks();
-
-
+    if(ds==null) ds=new List();
   }
 
   @override
   Widget build(BuildContext context) {
     _readAllTasks();
+
     return ListView.builder(
       itemCount: ds.length,
       itemBuilder: (context, index) {
@@ -100,5 +96,6 @@ class ListNoteState extends State<listnote> {
   }
 
 }
+
 
 

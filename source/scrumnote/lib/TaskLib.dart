@@ -104,25 +104,23 @@ class DatabaseHelper {
   }
 
   // Database helper methods:
-
+  //-----------CRUD tasks function-----------
   Future<int> insert(Task task) async {
     Database db = await database;
     int id = await db.insert(tableTask, task.toMap());
-    return id;
+    return id; // return id task chen
   }
-
-  Future<Task> queryWord(int id) async {
+  Future<Task> queryTask(int id) async {
     Database db = await database;
     List<Map> maps = await db.query(tableTask,
         columns: [columnId, columnSattus, columnTitle,columnContent,columnDateD],
         where: '$columnId = ?',
         whereArgs: [id]);
     if (maps.length > 0) {
-      return Task.fromMap(maps.first);
+      return Task.fromMap(maps.first); //return 1 task
     }
     return null;
   }
-
   Future<List<Task>> queryAllTasks() async {
   
     Database db = await database;
@@ -132,11 +130,50 @@ class DatabaseHelper {
       List<Task> res= new List();
       for (int i=0;i<maps.length;i++)
           res.add(Task.fromMap(maps.elementAt(i)));
-      return res;
+      return res; // return list<task> all task
     }
 
     return null;
   }
-// TODO: delete(int id)
-// TODO: update(Word word)
+  Future<int> deleteTask(int id) async {
+    Database db = await database;
+    return  await db.delete(tableTask,where: '$columnId=?',whereArgs: [id]);
+   //tra ve so dong bi xoa
+  }
+  Future<int> updateTask(Task task) async {
+    Database db = await database;
+    return  await db.update(tableTask,task.toMap(),where: '$columnId= ?',whereArgs: [task.id] );
+    //tra ve so dong bi xoa
+  }
+  Future<List<Task>> queryInCompleteTasks() async {
+
+    Database db = await database;
+    List<Map> maps = await db.query(tableTask,
+        columns: [columnId, columnSattus, columnTitle,columnContent,columnDateD],
+        where: '$columnSattus = 0');
+    if (maps.length > 0) {
+      List<Task> res= new List();
+      for (int i=0;i<maps.length;i++)
+        res.add(Task.fromMap(maps.elementAt(i)));
+      return res; // return list<task> all task
+    }
+
+    return null;
+  }
+  Future<List<Task>> queryTodayTasks(String today) async {
+
+    Database db = await database;
+    List<Map> maps = await db.query(tableTask,
+        columns: [columnId, columnSattus, columnTitle,columnContent,columnDateD],
+        where: '$columnDateD = ?',
+        whereArgs: [today]);
+    if (maps.length > 0) {
+      List<Task> res= new List();
+      for (int i=0;i<maps.length;i++)
+        res.add(Task.fromMap(maps.elementAt(i)));
+      return res; // return list<task> all task
+    }
+
+    return null;
+  }
 }

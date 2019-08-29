@@ -28,6 +28,15 @@ class MyTestInsertDeleteW extends StatelessWidget {
               },
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RaisedButton(
+              child: Text('Delete'),
+              onPressed: () {
+                _delete();
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -59,5 +68,12 @@ class MyTestInsertDeleteW extends StatelessWidget {
     DatabaseHelper helper = DatabaseHelper.instance;
     int id = await helper.insert(t);
     print('inserted row: $id');
+  }
+  _delete() async {
+    DatabaseHelper helper = DatabaseHelper.instance;
+    Task t= await helper.queryTask(4);
+    t.content="da lam dc r";
+    helper.updateTask(t);
+    print('updated');
   }
 }
