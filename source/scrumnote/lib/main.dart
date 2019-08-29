@@ -61,9 +61,6 @@ class listnote extends StatelessWidget{
     itemBuilder: (context, index) {
       return ListTile(
         title: _tile('CineArts at the Empire', '85 W Portal Ave', Icons.theaters),
-        // When a user taps the ListTile, navigate to the DetailScreen.
-        // Notice that you're not only creating a DetailScreen, you're
-        // also passing the current todo through to it.
         onTap: () {
           Navigator.push(
             context,
@@ -74,38 +71,7 @@ class listnote extends StatelessWidget{
         },
       );
     },
-//    children: [
-//      _tile('CineArts at the Empire', '85 W Portal Ave', Icons.theaters),
-//      _tile('The Castro Theater', '429 Castro St', Icons.theaters),
-//      _tile('Alamo Drafthouse Cinema', '2550 Mission St', Icons.theaters),
-//      _tile('Roxie Theater', '3117 16th St', Icons.theaters),
-//      _tile('United Artists Stonestown Twin', '501 Buckingham Way',
-//          Icons.theaters),
-//      _tile('AMC Metreon 16', '135 4th St #3000', Icons.theaters),
-//      Divider(),
-//      _tile('Kescaped_code#39;s Kitchen', '757 Monterey Blvd', Icons.restaurant),
-//      _tile('Emmyescaped_code#39;s Restaurant', '1923 Ocean Ave', Icons.restaurant),
-//      _tile(
-//          'Chaiya Thai Restaurant', '272 Claremont Blvd', Icons.restaurant),
-//      _tile('La Ciccia', '291 30th St', Icons.restaurant),
-//    ],
   );
   }
 }
 
-class listview extends StatefulWidget{
-  @override
-  content createState() => new content();
-}
-
-class content extends State<listview>{
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
-      child: new Center(
-        child: new FutureBuilder(builder: null),
-      ),
-    );
-  }
-}
