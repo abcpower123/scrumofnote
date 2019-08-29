@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 import 'note.dart';
+import 'TaskLib.dart';
 
 void main() => runApp(MaterialApp(
   title: "Flutter tutorial",
@@ -39,8 +40,18 @@ class home extends StatelessWidget {
   }
 }
 
-class listnote extends StatelessWidget{
+class listnote extends StatefulWidget{
   final title = 'Grid List';
+  @override
+  State<StatefulWidget> createState() {
+
+    return ListNoteState();
+  }
+}
+
+class ListNoteState extends State<listnote> {
+  //varible
+  List<Task> ds=new List();
   ListTile _tile(String title, String subtitle, IconData icon) => ListTile(
     title: Text(title,
         style: TextStyle(
@@ -54,24 +65,40 @@ class listnote extends StatelessWidget{
     ),
     trailing: Icon(Icons.keyboard_arrow_right),
   );
+
+  //method
+  _readAllTasks() async {
+
+
+    DatabaseHelper helper = DatabaseHelper.instance;
+
+    ds= await helper.queryAllTasks();
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
-  return ListView.builder(
-    itemCount: 1,
-    itemBuilder: (context, index) {
-      return ListTile(
-        title: _tile('CineArts at the Empire', '85 W Portal Ave', Icons.theaters),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TutorialHome(todo: "Le van tri"),
-            ),
-          );
-        },
-      );
-    },
-  );
+    _readAllTasks();
+    return ListView.builder(
+      itemCount: ds.length,
+      itemBuilder: (context, index) {
+        _readAllTasks();
+        return ListTile(
+          title: _tile(ds[index].title, ds[index].content, Icons.theaters),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TutorialHome(todo: "Le van tri"),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
+
 }
+
 
