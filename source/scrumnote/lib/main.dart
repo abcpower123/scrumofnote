@@ -23,7 +23,7 @@ class home extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text("Home"),
+        child: listnote(),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: "Ađd",
@@ -38,3 +38,40 @@ class home extends StatelessWidget {
     );
   }
 }
+
+class listnote extends StatelessWidget{
+  final title = 'Grid List';
+  ListTile _tile(String title, String subtitle, IconData icon) => ListTile(
+    title: Text(title,
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 20,
+        )),
+    subtitle: Text(subtitle),
+    leading: Icon(
+      icon,
+      color: Colors.blue[500],
+    ),
+    trailing: Icon(Icons.keyboard_arrow_right),
+  );
+  @override
+  Widget build(BuildContext context) {
+  return ListView.builder(
+    itemCount: 1,
+    itemBuilder: (context, index) {
+      return ListTile(
+        title: _tile('CineArts at the Empire', '85 W Portal Ave', Icons.theaters),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TutorialHome(todo: "Le van tri"),
+            ),
+          );
+        },
+      );
+    },
+  );
+  }
+}
+

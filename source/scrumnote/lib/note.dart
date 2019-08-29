@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 class TutorialHome extends StatelessWidget {
+  final String todo;
+
+  // In the constructor, require a Todo.
+  TutorialHome({Key key, @required this.todo}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -19,7 +23,7 @@ class TutorialHome extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Note(),
+        child: Note(todo: todo),
       ),
       persistentFooterButtons: <Widget>[
         FlatButton.icon(
@@ -42,6 +46,10 @@ class TutorialHome extends StatelessWidget {
 }
 
 class Note extends StatelessWidget {
+  final String todo;
+
+  // In the constructor, require a Todo.
+  Note({Key key, @required this.todo}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -52,7 +60,7 @@ class Note extends StatelessWidget {
         child: TextField(
           maxLines: 99,
           decoration: InputDecoration(
-            hintText: "Input content note...",
+            hintText: "Input content note... ${todo}",
             border: OutlineInputBorder(),
           ),
         ),
