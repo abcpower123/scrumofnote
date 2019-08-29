@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "579648949339",
+    "firebase_url": "https://scrum-f41d4.firebaseio.com",
+    "project_id": "scrum-f41d4",
+    "storage_bucket": "scrum-f41d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579648949339:android:68eec8e435590d1b",
+        "android_client_info": {
+          "package_name": "com.gmail.vantri.first_fulter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579648949339-vp3hm9409p9nkg0ppqq3240r4jqj13j4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlrmUwSTnrCGcsdFRSz_m_ktGjpGQWkK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579648949339-vp3hm9409p9nkg0ppqq3240r4jqj13j4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
