@@ -1,4 +1,4 @@
-package com.gmail.vantri.first_fulter;
+package chickenteam.scrumnote;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
