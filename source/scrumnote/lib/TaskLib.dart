@@ -50,9 +50,11 @@ class Task {
 
 
     };
+    if(id==-1) id=null;
     if (id != null) {
       map[columnId] = id;
     }
+
     return map;
   }
 }
@@ -121,6 +123,7 @@ class DatabaseHelper {
     }
     return null;
   }
+
   Future<List<Task>> queryAllTasks() async {
   
     Database db = await database;
@@ -165,8 +168,7 @@ class DatabaseHelper {
     Database db = await database;
     List<Map> maps = await db.query(tableTask,
         columns: [columnId, columnSattus, columnTitle,columnContent,columnDateD],
-        where: '$columnDateD = ?',
-        whereArgs: [today]);
+        where: "$columnDateD like '$today%'");
     if (maps.length > 0) {
       List<Task> res= new List();
       for (int i=0;i<maps.length;i++)

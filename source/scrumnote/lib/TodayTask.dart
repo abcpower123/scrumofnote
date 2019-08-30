@@ -1,40 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'note.dart';
 import 'TaskLib.dart';
-import 'package:scrumnote/TodayTask.dart';
-void main() {
-
-  runApp(MaterialApp(
-    title: "Flutter tutorial",
-    home: LoadingScreen(),
-  ));
-}
-
-class ShowAllTaskWidget extends StatelessWidget {
+import 'main.dart';
+class ShowTodayTaskWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: Icon(Icons.list), tooltip: "Navi", onPressed: null),
+            icon: Icon(Icons.list), tooltip: "Navi", onPressed: (){
+
+        }),
         title: Center(
           child: Text("Note"),
         ),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.grid_on), tooltip: "Search",
-              onPressed: (){
-                Navigator.push(
-                context,
-               MaterialPageRoute(
-                builder: (context) =>LoadingScreenToday(),
-               ),
-            );
-          }),
 
+          IconButton(
+              icon: Icon(Icons.do_not_disturb_alt), tooltip: "Search", onPressed: null)
         ],
       ),
       body: Center(
-        child: ListNote(),
+        child: ListNoteToday(),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: "Ađd",
@@ -51,15 +38,15 @@ class ShowAllTaskWidget extends StatelessWidget {
     );
   }
 }
-class ListNote extends StatefulWidget{
+class ListNoteToday extends StatefulWidget{
   final title = 'Grid List';
   @override
   State<StatefulWidget> createState() {
 
-    return ListNoteState();
+    return ListNoteTodayState();
   }
 }
-class ListNoteState extends State<ListNote> {
+class ListNoteTodayState extends State<ListNoteToday> {
   //varible
   static List<Task> ds=new List();
   ListTile _tile(String title, String subtitle, int status, IconData icon) => ListTile(
@@ -81,7 +68,7 @@ class ListNoteState extends State<ListNote> {
   static readAllTasks() async {
     print("Chayj ham read");
     DatabaseHelper helper = DatabaseHelper.instance;
-    ds= await helper.queryAllTasks();
+    ds= await helper.queryTodayTasks("${new DateFormat('yyyy-MM-dd').format(DateTime.now())}");
     if(ds==null) ds=new List();
   }
 
@@ -109,38 +96,46 @@ class ListNoteState extends State<ListNote> {
     );
   }
   @override
-   initState()  {
-     loading();
+  initState()  {
+    loading();
     super.initState();
   }
-   loading() async {
+  loading() async {
     await readAllTasks();
     print("load ok");
-   }
+  }
 }
 
-class LoadingScreen extends StatefulWidget {
+class LoadingScreenToday extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
 
-    return LoaddingState();
+    return LoaddingStateToday();
   }
 
 }
 
-class LoaddingState extends State<LoadingScreen> {
+class LoaddingStateToday extends State<LoadingScreenToday> {
   @override
   Widget build(BuildContext context) {
-  //  onStart(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: Icon(Icons.list), tooltip: "Navi", onPressed: null),
+            icon: Icon(Icons.list), tooltip: "Navi", onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>LoadingScreen(),
+            ),
+          );
+        }),
         title: Center(
           child: Text("Note"),
         ),
         actions: <Widget>[
-
+//          IconButton(
+//              icon: Icon(Icons.grid_on), tooltip: "Search",
+//              ),
           IconButton(
               icon: Icon(Icons.do_not_disturb_alt), tooltip: "Search", onPressed: null)
         ],
@@ -157,7 +152,7 @@ class LoaddingState extends State<LoadingScreen> {
   }
 
   Future onStart(BuildContext context) async {
-    await ListNoteState.readAllTasks();
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ShowAllTaskWidget()),);
+    await ListNoteTodayState.readAllTasks();
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ShowTodayTaskWidget()),);
   }
 }
