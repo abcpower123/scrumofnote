@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:scrumnote/InsertDeleteEx.dart';
 import 'note.dart';
 import 'TaskLib.dart';
+import 'InsertDeleteEx.dart';
+import 'grid.dart';
 
 void main() => runApp(MaterialApp(
   title: "Flutter tutorial",
@@ -13,13 +15,23 @@ class ShowAllTaskWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: Icon(Icons.menu), tooltip: "Navi", onPressed: null),
+            icon: Icon(Icons.list), tooltip: "Navi", onPressed: null),
         title: Center(
           child: Text("Note"),
         ),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.search), tooltip: "Search", onPressed: null)
+              icon: Icon(Icons.grid_on), tooltip: "Search",
+              onPressed: (){
+                Navigator.push(
+                context,
+               MaterialPageRoute(
+                builder: (context) =>homeGrid(),
+               ),
+            );
+          }),
+          IconButton(
+              icon: Icon(Icons.do_not_disturb_alt), tooltip: "Search", onPressed: null)
         ],
       ),
       body: Center(
@@ -86,7 +98,7 @@ class ListNoteState extends State<ListNote> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => TutorialHome(todo: "Le van tri"),
+                builder: (context) => TutorialHome(todo: ds[index]),
               ),
             );
           },
